@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador da Ana Beatriz</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f0f2f5;text-align:center;padding:20px}
+.card{background:white;max-width:400px;margin:auto;padding:20px;border-radius:15px;box-shadow:0 2px 10px #ccc}
+input{width:90%;padding:12px;margin:10px 0;border-radius:8px;border:1px solid #ccc;font-size:16px}
+button{background:#22c55e;color:white;border:none;padding:12px 20px;border-radius:8px;font-size:16px;width:95%}
+#resultado{margin-top:20px;font-size:18px;font-weight:bold;color:#333}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>📱 Simulador da Ana Beatriz</h1>
+<p>Quantas horas por dia você passa nas redes?</p>
+<input type="number" id="horas" placeholder="Ex: 4">
+<button id="botao">Calcular</button>
+<div id="resultado"></div>
+</div>
+<script>
+const dadosPesquisa = {
+  mediaNacionalDiaria: 4,
+  alertaSaude: 6,
+  sugestoes: [
+    { limite: 2, mensagem: "Parabéns! Seu uso está equilibrado." },
+    { limite: 5, mensagem: "Atenção. Você está na média nacional." },
+    { limite: 24, mensagem: "Cuidado! Seu uso é muito alto." }
+  ]
+};
+
+document.getElementById('botao').addEventListener('click', function(){
+  let h = Number(document.getElementById('horas').value);
+  if(!h || h < 0 || h > 24){
+    document.getElementById('resultado').innerHTML='Digite um número de 0 a 24!';
+    return;
+  }
+  let porSemana = h*7;
+  let porMes = h*30;
+  let porAno = h*365;
+
+  let mensagem = "";
+  for(let item of dadosPesquisa.sugestoes){
+    if(h <= item.limite){ mensagem = item.mensagem; break; }
+  }
+
+  document.getElementById('resultado').innerHTML = 
+  `Ana Beatriz, você passa <br> ${porSemana}h por semana <br> ${porMes}h por mês <br> ${porAno}h por ano <br><br> ${mensagem}`;
+});
+</script>
+</body>
+</html>
